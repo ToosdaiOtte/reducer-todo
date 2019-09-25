@@ -8,26 +8,22 @@ const App = () => {
   const [newTodo, setNewTodo] = useState();
 
   const [state, dispatch] = useReducer(todoReducer, initialState);
-  console.log(state);
-
-
-  const clearCompleted = e => {
-    e.preventDefault();
-    setNewTodo({
-      todos: state.todos.filter(task => !task.completed)
-    });
-  };
-
+  console.log(state.todos);
 
     return(
       <div className="App">
         <div className="header">
           <h1>Todo List</h1>
-          <TodoForm />
+          <TodoForm 
+            state={state.todos} 
+            dispatch={dispatch} 
+            newTodo={newTodo}
+            setNewTodo={setNewTodo}
+          />
         </div>
         <TodoList
-          state={state}
-          clearCompleted={clearCompleted}
+          state={state.todos}
+          dispatch={dispatch}
         />
       </div>
     );

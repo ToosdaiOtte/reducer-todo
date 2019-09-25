@@ -1,28 +1,30 @@
-import React, { useState, useReducer } from 'react';
-import { initialState, todoReducer } from '../reducers/todoReducer';
+import React from 'react';
+// import { initialState, todoReducer } from '../reducers/todoReducer';
 
-const TodoForm = () =>  {
-    const [newTodo, setNewTodo] = useState({ taskName: ''});
-    const [state, dispatch] = useReducer({ todoReducer, initialState });
+const TodoForm = props =>  {
+    console.log(props.state);
 
-    // handleChanges = e => {
-    //     setNewTodo({ taskName: e.target.value });
-    //     console.log(taskName);
-    // };
     const handleChanges = e => {
-        setNewTodo({ taskName: e.target.value});
-        console.log(newTodo);
+        e.preventDefault();
+        props.setNewTodo(e.target.value);
+        console.log(props.newTodo);
       };
+
 
         return(
             <form>
                 <input
                     type="text"
-                    name="task"
-                    value={state}
+                    name="props.newTodo"
+                    value={props.newTodo}
                     onChange={handleChanges}
                 />
-                <button onClick={() => dispatch({ type: 'ADD_TODO' })}>Add</button>
+                <button onClick={e => {
+                    e.preventDefault();
+                    props.dispatch({ type: 'ADD_TODO', payload: props.newTodo })
+                }}>
+                    Add
+                </button>
             </form>
         );
     }
