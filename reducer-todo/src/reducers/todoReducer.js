@@ -1,3 +1,4 @@
+// Export initialState with todo array
 export const initialState = {
     todos: [
         {
@@ -13,8 +14,11 @@ export const initialState = {
     ]
 };
 
+
+// Export todoReducer with switch cases for action.type
 export const todoReducer = (state, action) => {
     switch(action.type){
+        // ADD_TODO case adding new todo item to array
         case 'ADD_TODO':
             return {
                 ...state,
@@ -26,6 +30,7 @@ export const todoReducer = (state, action) => {
                     }
                 ]        
             }
+        // TOGGLE_COMPLETED case mapping through todo items for their individual ids, to switch their completed status to the opposite of what it is set to
         case 'TOGGLE_COMPLETED':
             return {
                 ...state,
@@ -40,6 +45,15 @@ export const todoReducer = (state, action) => {
                                 return todo;
                             }
                         }
+                    )
+            }
+        // CLEAR_COMPLETED case filtering through todo items to keep the items with a completed status of false
+        case 'CLEAR_COMPLETED':
+            return {
+                ...state,
+                todos:
+                    state.todos.filter(todo => 
+                        todo.completed === false
                     )
             }
         default:
