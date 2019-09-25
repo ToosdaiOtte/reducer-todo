@@ -5,7 +5,6 @@ const TodoForm = props =>  {
     console.log(props.state);
 
     const handleChanges = e => {
-        e.preventDefault();
         props.setNewTodo(e.target.value);
         console.log(props.newTodo);
       };
